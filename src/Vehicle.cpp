@@ -1,5 +1,6 @@
 #include <iostream>
 #include <random>
+#include <memory>
 #include "Street.h"
 #include "Intersection.h"
 #include "Vehicle.h"
