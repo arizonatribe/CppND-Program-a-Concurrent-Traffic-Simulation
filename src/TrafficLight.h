@@ -9,49 +9,38 @@
 // forward declarations to avoid include cycle
 class Vehicle;
 
-enum TrafficLightPhase
-{
-    red,
-    green,
+enum TrafficLightPhase {
+  red,
+  green,
 };
 
 template <class T>
-class MessageQueue
-{
-public:
+class MessageQueue {
+  public:
     void send(T &&msg);
     T receive();
 
-private:
+  private:
     std::mutex _mutex;
     std::condition_variable _condition;
     std::deque<T> _queue;
-    
 };
 
-class TrafficLight : public TrafficObject
-{
-public:
-    // constructor / desctructor
+class TrafficLight : public TrafficObject {
+  public:
     TrafficLight();
 
-    // getters / setters
     TrafficLightPhase getCurrentPhase();
 
-    // typical behaviour methods
     void simulate();
     void waitForGreen();
 
-private:
-    // typical behaviour methods
+  private:
     void cycleThroughPhases();
 
     TrafficLightPhase _currentPhase;
 
     MessageQueue<TrafficLightPhase> _messages;
-
-    std::condition_variable _condition;
-    std::mutex _mutex;
 };
 
 #endif

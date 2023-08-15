@@ -2,32 +2,30 @@
 #define GRAPHICS_H
 
 #include <string>
-#include <vector>
+#include <memory>
 #include <opencv2/core.hpp>
+#include <vector>
 #include "TrafficObject.h"
 
-class Graphics
-{
-public:
-    // constructor / desctructor
+class Graphics {
+  public:
+    void setBgFilename(std::string filename) {
+      _bgFilename = filename;
+    }
+    void setTrafficObjects(std::vector<std::shared_ptr<TrafficObject>> &trafficObjects) {
+      _trafficObjects = trafficObjects;
+    };
 
-    // getters / setters
-    void setBgFilename(std::string filename) { _bgFilename = filename; }
-    void setTrafficObjects(std::vector<std::shared_ptr<TrafficObject>> &trafficObjects) { _trafficObjects = trafficObjects; };
-
-    // typical behaviour methods
     void simulate();
 
-private:
-    // typical behaviour methods
+  private:
     void loadBackgroundImg();
     void drawTrafficObjects();
 
-    // member variables
-    std::vector<std::shared_ptr<TrafficObject>> _trafficObjects;
     std::string _bgFilename;
     std::string _windowName;
     std::vector<cv::Mat> _images;
+    std::vector<std::shared_ptr<TrafficObject>> _trafficObjects;
 };
 
 #endif
